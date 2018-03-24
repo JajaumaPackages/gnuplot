@@ -1,6 +1,6 @@
 %global major 5
-%global minor 0
-%global patchlevel 6
+%global minor 2
+%global patchlevel 2
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
@@ -13,7 +13,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 8%{?dist}
+Release: 1%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 Group: Applications/Engineering
@@ -32,6 +32,7 @@ Patch3: gnuplot-4.6.1-plot-sigsegv.patch
 Patch4: gnuplot-4.6.4-singlethread.patch
 Patch5: gnuplot-5.0.0-lua_checkint.patch
 #Patch6: gnuplot-5.0.6-no-lena.patch
+Patch100: gnuplot-5.2.2-revert-doc2texi-el.patch
 
 Requires: %{name}-common = %{version}-%{release}
 Requires: dejavu-sans-fonts
@@ -169,6 +170,7 @@ plotting tool.
 %patch4 -p1 -b .isinglethread
 %patch5 -p1 -b .checkint
 #patch6 -p1 -b .nolena
+%patch100 -p1 -b .doc2texi-el
 sed -i -e 's:"/usr/lib/X11/app-defaults":"%{x11_app_defaults_dir}":' src/gplt_x11.c
 iconv -f windows-1252 -t utf-8 ChangeLog > ChangeLog.aux
 mv ChangeLog.aux ChangeLog
@@ -367,6 +369,9 @@ fi
 %{_datadir}/texmf/tex/latex/gnuplot/
 
 %changelog
+* Sat Mar 24 2018 Jajauma's Packages <jajauma@yandex.ru> - 5.2.2-1
+- Update to 5.2.2
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 

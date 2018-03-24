@@ -1,0 +1,66 @@
+--- gnuplot-5.2.2/docs/doc2texi.el	2017-05-18 19:31:58.000000000 +0300
++++ gnuplot-5.0.6/docs/doc2texi.el	2014-10-01 06:36:59.000000000 +0400
+@@ -298,6 +298,8 @@
+ 	"metapost"
+ 	"mgr"
+ 	"mif"
++	"next"
++	"openstep"
+ 	"pbm"
+ 	"pc"
+ 	"pdf"
+@@ -307,6 +309,7 @@
+ 	"pstricks"
+ 	"qms"
+ 	"regis"
++	"sun"
+ 	"svg"
+ 	"t410x"
+ 	"table"
+@@ -396,7 +399,6 @@
+   ;; convert the buffer from doc to texi, one element at a time
+   (message "Converting to texinfo ...")
+   (d2t-braces-atsigns)   ;; this must be the first conversion function
+-  (d2t-transitem)        ;; translate new list item
+   (d2t-comments)         ;; delete comments
+   (d2t-sectioning)       ;; chapters, sections, etc
+   (d2t-get-eldoc-strings)
+@@ -449,11 +451,13 @@
+   '(("linux" "linux")
+     ("canvas" "canvas")
+     ("lua" "lua" "tikz")
+-    ("mac" "mac")
++    ("mac" "mac" "openstep")
+     ("beos" "be")
+     ("dos" "emxvga" "djsvga" "fg" "pc")
+     ("windows" "win")
++    ("next" "next")
+     ("os2" "pm" "emxvga")
++    ("sun" "sun")
+     ("vms" "vws"))
+ 
+   "Additional terminals to add to the converted gnuplot.info file.
+@@ -749,23 +753,6 @@
+ 	  (beginning-of-line)
+ 	  (insert "@c ")))) ))
+ 
+-(defun d2t-transitem ()
+-  "Translation lines beginning with #start, #end, #b, and ##.
+-These lines makes a itemized list."
+-  (and d2t-verbose (message "  Doing d2t-transitem ..."))
+-  (save-excursion
+-    (while (re-search-forward "^#start" (point-max) "to_end")
+-      (replace-match "@itemize @bullet" t))
+-    (goto-char (point-min))
+-    (while (re-search-forward "^#end" (point-max) "to_end")
+-      (replace-match "@end itemize" t))
+-    (goto-char (point-min))
+-    (while (re-search-forward "^#b" (point-max) "to_end")
+-      (replace-match "@item\n" t))
+-    (goto-char (point-min))
+-    (while (re-search-forward "^##" (point-max) "to_end")
+-      (replace-match "" t))))
+-
+ (defun d2t-comments ()
+   "Delete comments and lines beginning with # or %.
+ # and % lines are used in converting tables into various formats.
