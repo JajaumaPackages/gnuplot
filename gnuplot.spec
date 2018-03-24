@@ -20,8 +20,8 @@ Group: Applications/Engineering
 URL: http://www.gnuplot.info/
 # Need to remove non-free lena files
 # rm -rf demo/lena*
-# Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source0: %{name}-%{version}-clean.tar.gz
+Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+# Source0: %{name}-%{version}-clean.tar.gz
 Source1: gnuplot-init.el
 
 Patch0: gnuplot-4.2.0-refers_to.patch
@@ -31,7 +31,7 @@ Patch1: gnuplot-4.2.0-fonts.patch
 Patch3: gnuplot-4.6.1-plot-sigsegv.patch
 Patch4: gnuplot-4.6.4-singlethread.patch
 Patch5: gnuplot-5.0.0-lua_checkint.patch
-Patch6: gnuplot-5.0.6-no-lena.patch
+#Patch6: gnuplot-5.0.6-no-lena.patch
 
 Requires: %{name}-common = %{version}-%{release}
 Requires: dejavu-sans-fonts
@@ -168,7 +168,7 @@ plotting tool.
 %patch3 -p1 -b .plot-sigsegv
 %patch4 -p1 -b .isinglethread
 %patch5 -p1 -b .checkint
-%patch6 -p1 -b .nolena
+#patch6 -p1 -b .nolena
 sed -i -e 's:"/usr/lib/X11/app-defaults":"%{x11_app_defaults_dir}":' src/gplt_x11.c
 iconv -f windows-1252 -t utf-8 ChangeLog > ChangeLog.aux
 mv ChangeLog.aux ChangeLog
