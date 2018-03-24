@@ -4,7 +4,7 @@
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %bcond_without wx
 %else
 %bcond_with wx
