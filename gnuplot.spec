@@ -366,7 +366,7 @@ fi
 
 %files latex
 %doc ChangeLog Copyright
-%{_datadir}/texmf/tex/latex/gnuplot/
+%{_datadir}/texlive/texmf-local/tex/latex/gnuplot/
 
 %changelog
 * Sat Mar 24 2018 Jajauma's Packages <jajauma@yandex.ru> - 5.2.2-1
